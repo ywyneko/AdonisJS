@@ -1,0 +1,46 @@
+@layout('layouts.master')
+
+@section('title')
+    User list 
+@endsection
+
+@section('content')
+    <div class="container">
+        <div class="card my-5">
+            <div class="card-header">
+                User list
+                <a href="/user/create" class="btn btn-primary">Create User</a>
+            </div>
+            <div class="card-body">
+                @if(old('notification'))
+                    <div class="alert alert-success">
+                        {{old('notification')}}
+                    </div>
+                @endif
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Created at</th>
+                        <th>Updated at</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        @each(user in users)
+                            <tr>
+                                <td>{{user.username}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.created_at ? user.created_at : '-'}}</td>
+                                <td>{{user.updated_at ? user.updated_at : '-'}}</td>
+                                <td>
+                                <a href="/user/{{user.id}}/edit" class="btn btn-warning">Edit</a>
+                                <a href="/user/{{user.id}}/delete" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        @endeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+@endsection
